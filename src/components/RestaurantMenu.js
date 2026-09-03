@@ -19,11 +19,15 @@ const RestaurantMenu = () => {
 
   const fetchMenu = async () => {
     const res = await fetch(
-      'https://www.themealdb.com/api/json/v1/1/filter.php?a=Indian'
+      'https://www.themealdb.com/api/json/v1/1/filter.php?c=Chicken'
     );
+
     const json = await res.json();
-    const shuffledMenu = shuffleArray(json.meals);
-    setMenu(shuffledMenu);
+
+    const meals = json.meals ?? [];
+    const shuffledMenu = shuffleArray(meals);
+
+    setMenu(shuffledMenu.slice(0, 13));
   };
 
   return (
