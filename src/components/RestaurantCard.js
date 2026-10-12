@@ -1,5 +1,13 @@
 import { CDN_URL } from '../utils/constants';
 
+const badgeColors = [
+  'bg-blue-600',
+  'bg-amber-400 text-slate-900',
+  'bg-red-600',
+  'bg-emerald-600',
+  'bg-orange-500',
+];
+
 const RestaurantCard = ({ resData }) => {
   const { cloudinaryImageId, name, avgRating, cuisines, costForTwo, sla } =
     resData.info;
@@ -8,48 +16,43 @@ const RestaurantCard = ({ resData }) => {
   let text = '';
   if (discount) {
     if (discount.subHeader) {
-      text = discount.header + ' - ' + discount.subHeader;
+      text = discount.header + ' ' + discount.subHeader;
     } else {
       text = discount.header;
     }
   }
+  const colorIndex = (name?.length || 0) % badgeColors.length;
+
   return (
-    <div
-      className=" w-[250px]
-               flex flex-col
-             bg-[#f7f4f2]
-              text-black
-               rounded-[10px]
-               p-[6px]
-              box-border h-auto gap-2 transition-all duration-300 ease-out
-              hover:-translate-y-2
-              hover:shadow-xl  "
-    >
-      <div className="relative w-full h-[150px] ">
+    <div className="bg-white rounded-2xl overflow-hidden border border-slate-100 hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+      <div className="relative w-full h-[180px]">
         <img
-          className="res-logo w-full h-full object-cover rounded-[10px]"
+          className="w-full h-full object-cover"
           src={imageUrl}
           alt={name}
           loading="lazy"
         />
-        <div
-          className="absolute bottom-2 left-2
-                bg-black/70 text-white
-                text-sm font-semibold shadow-xl
-                px-2 py-1 justify-center rounded"
-        >
-          {text}
-        </div>
+        {text ? (
+          <div
+            className={`absolute top-3 left-3 ${badgeColors[colorIndex]} text-white text-[11px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-md shadow`}
+          >
+            {text}
+          </div>
+        ) : null}
       </div>
 
-      <h3 className="mt-2 font-semibold truncate">{name}</h3>
-      <div className="logocontent ">
-        <h4 className="truncate">{cuisines.join(', ')}</h4>
-
-        <h4>
-          ⭐ {avgRating} • ⏱ {sla?.deliveryTime} mins
-        </h4>
-        <h4>{costForTwo}</h4>
+      <div className="p-3.5">
+        <h3 className="font-bold text-slate-900 truncate">{name}</h3>
+        <p className="text-sm text-slate-500 truncate mt-0.5">
+          {cuisines.join(', ')}
+        </p>
+        <div className="mt-2 flex items-center justify-between text-sm text-slate-700">
+          <span className="inline-flex items-center gap-1 font-semibold">
+            ★ {avgRating}
+          </span>
+          <span>{sla?.deliveryTime} mins</span>
+          <span>{costForTwo}</span>
+        </div>
       </div>
     </div>
   );

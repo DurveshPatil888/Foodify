@@ -7,32 +7,49 @@ const Cart = () => {
   const HandleClearCart = () => {
     dispatch(clearCart());
   };
-  return (
-    <div className="text-center min-h-screen flex flex-col items-center justify-center  m-10 p-10">
-      <h1 className="text-xl font-bold">Cart</h1>
+  const cartTotal = cartItems.reduce((sum, _item, i) => sum + (150 + i * 10), 0);
 
-      {
-        <ul className="mt-5 flex flex-col gap-3 items-center">
-          {cartItems.map((item, i = 1) => (
+  return (
+    <div className="min-h-screen pt-28 pb-16 px-4 bg-gradient-to-b from-orange-50 to-white">
+      <div className="max-w-xl mx-auto bg-white rounded-2xl shadow-sm border border-orange-100 p-8">
+        <h1 className="text-2xl font-extrabold text-slate-900">Cart</h1>
+        <p className="text-sm text-slate-500 mt-1">
+          {cartItems.length} {cartItems.length === 1 ? 'item' : 'items'}
+        </p>
+
+        <ul className="mt-6 flex flex-col gap-3">
+          {cartItems.map((item, i) => (
             <li
               key={item.idMeal}
-              className="flex justify-between w-96 border-b pb-2"
+              className="flex justify-between items-center border-b border-slate-100 pb-3"
             >
-              <span>{item.strMeal}</span>
-              <span className="text-gray-500 font-medium py-[2px] text-center w-16">
+              <span className="font-medium text-slate-800">{item.strMeal}</span>
+              <span className="text-orange-600 font-semibold py-[2px] text-center w-16">
                 ₹{150 + i * 10}
               </span>
             </li>
           ))}
         </ul>
-      }
-      <button
-        className="p-2 m-2 bg-black text-white rounded-lg"
-        onClick={HandleClearCart}
-      >
-        Clear Cart
-      </button>
-      {cartItems.length === 0 && <h1> Cart is Empty. Add Items to the Cart</h1>}
+
+        {cartItems.length > 0 && (
+          <div className="flex justify-between mt-4 font-bold text-slate-900">
+            <span>Total</span>
+            <span>₹{cartTotal}</span>
+          </div>
+        )}
+
+        <button
+          className="mt-6 w-full p-2.5 bg-slate-900 text-white rounded-full font-semibold hover:bg-slate-800"
+          onClick={HandleClearCart}
+        >
+          Clear Cart
+        </button>
+        {cartItems.length === 0 && (
+          <h1 className="mt-4 text-center text-slate-500">
+            Cart is Empty. Add Items to the Cart
+          </h1>
+        )}
+      </div>
     </div>
   );
 };

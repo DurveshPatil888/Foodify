@@ -15,7 +15,7 @@ import Login from './components/Login'; //not using key ( not acceptable )<<<< i
 const AppLayout = () => {
   return (
     <Provider store={appStore}>
-      <div className="app">
+      <div className="app min-h-screen bg-white font-sans text-slate-900">
         <Header />
         <Outlet />
       </div>

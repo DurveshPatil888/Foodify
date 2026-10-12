@@ -31,22 +31,22 @@ const RestaurantMenu = () => {
   };
 
   return (
-    <div className="menu flex flex-col my-5 items-center mt-32  ">
-      <h1 className="font-bold text-2xl">{resName}</h1>
-      <h2 className="my-3 font-semibold text-xl">Menu</h2>
-      <div className="my-2 max-w-[auto] mx-auto ">
-        <ul className=" flex flex-col gap-1 text-[17px]  ">
+    <div className="min-h-screen pt-28 pb-16 px-4 bg-gradient-to-b from-orange-50 to-white">
+      <div className="max-w-xl mx-auto bg-white rounded-2xl border border-orange-100 shadow-sm p-8">
+        <h1 className="font-extrabold text-2xl text-slate-900">{resName}</h1>
+        <h2 className="mt-1 font-semibold text-orange-500">Menu</h2>
+        <ul className="mt-4 flex flex-col gap-1 text-[17px]">
           {menu.slice(2).map((item, i) => (
             <li
-              className="text-left flex justify-between w-full gap-10 border-b-2 hover:bg-gray-50 "
+              className="text-left flex justify-between items-center w-full gap-4 border-b border-slate-100 hover:bg-orange-50/60 px-1"
               key={item.idMeal}
             >
-              <span className=" flex-1 truncate">{item.strMeal}</span>
-              <span className="text-gray-500 font-medium py-[2px] text-center w-16">
+              <span className="flex-1 truncate">{item.strMeal}</span>
+              <span className="text-orange-600 font-medium py-[2px] text-center w-16">
                 ₹{150 + i * 10}
               </span>
               <button
-                className="px-2 py-[2px] bg-gray-700 text-white m-2 items-center justify-center rounded-lg text-[12px]"
+                className="px-3 py-1 bg-orange-500 text-white m-2 rounded-full text-[12px] font-semibold"
                 onClick={() => handleAddItem(item)}
               >
                 Add
