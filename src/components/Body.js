@@ -1,6 +1,6 @@
 import RestaurantCard from './RestaurantCard';
 import { useState } from 'react';
-import Shimmer from './shimmer';
+import Shimmer from './Shimmer';
 import useCards from '../utils/useCards';
 import { Link } from 'react-router-dom';
 import useOnlineStatus from '../utils/useOnlineStatus';
@@ -29,10 +29,7 @@ const Body = () => {
   listOfRestaurants.forEach((res) => {
     (res.info.cuisines || []).forEach((cuisine) => {
       const key = cuisine.toLowerCase();
-      if (
-        !skipCategories.includes(key) &&
-        !cuisineNames.includes(cuisine)
-      ) {
+      if (!skipCategories.includes(key) && !cuisineNames.includes(cuisine)) {
         cuisineNames.push(cuisine);
       }
     });
