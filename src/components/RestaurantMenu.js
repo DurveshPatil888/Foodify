@@ -2,11 +2,20 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { addItem } from '../utils/redux/cartSlice';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { auth } from '../utils/firebase';
 const RestaurantMenu = () => {
   const { resName } = useParams();
   const [menu, setMenu] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleAddItem = (item) => {
+    if (!auth.currentUser) {
+      alert('Please login to add items to your cart.');
+      navigate('/Login');
+      return;
+    }
+
     dispatch(addItem(item));
   };
 
